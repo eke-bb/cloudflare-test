@@ -7,6 +7,10 @@ const nextConfig = {
     // which is outside of the `site/nextjs` directory
     externalDir: true,
   },
+  images: {
+    loader: 'akamai',
+    path: '',
+  },
 }
 
 module.exports = nextConfig
