@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextRequest } from 'next/server'
 
 type Data = {
   name: string
@@ -10,8 +10,17 @@ export const config = {
 }
 
 export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+  req: NextRequest,
 ) {
-  res.status(200).json({ name: process.env.HELLO! })
+  return new Response(
+    JSON.stringify({
+      name: process.env.HELLO,
+    }),
+    {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  )
 }
