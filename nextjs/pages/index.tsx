@@ -1,11 +1,25 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import localization from "../../studio/localization";
+import {useEffect, useState} from "react";
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const paths: any[] = ["/"];
+
+  const [data, setData] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (data === null) {
+      fetch("/api/hello").then(response => response.json()).then(payload => {
+        setData(payload.name)
+      }).catch(error => {
+        console.log(error);
+        setData("");
+      })
+    }
+  }, [data]);
 
   Object.keys(localization.regions).forEach(region => {
     localization.languages(region).forEach(language => {
